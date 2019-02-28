@@ -52,10 +52,15 @@ public class FSImageTest {
             } else if (elementName.equals("CacheManagerSection")) {
                 utils.getElementContext(element);
             } else if (element.getName().equals("INodeDirectorySection")) {
-                List list = utils.getINodeDirectorySection(element);
+                ArrayList list = utils.getINodeDirectorySection(element);
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println("parent:" + ((Directory)list.get(i)).getParent());
+                    System.out.println(((Directory)list.get(i)).getInodes());
+                    System.out.println("===========inode结束==========");
+                }
             } else if (element.getName().equals("INodeSection")) {
-                List list = utils.getINodeSection(element);
-                System.out.println(list.size());
+//                List list = utils.getINodeSection(element);
+//                System.out.println(list.size());
 //                for (int i = 0; i < list.size(); i++) {
 //                    System.out.println(list.get(i));
 //                }

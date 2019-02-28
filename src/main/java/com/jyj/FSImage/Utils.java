@@ -43,7 +43,7 @@ public class Utils {
         }
     }
 
-    public List getINodeDirectorySection (Element element) {
+    public ArrayList<Directory> getINodeDirectorySection (Element element) {
         ArrayList<Directory> directories = new ArrayList<Directory>();
         ArrayList<String> inodeIds = null;
         Directory directory = null;
