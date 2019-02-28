@@ -70,10 +70,10 @@ public class Utils {
         return directories;
     }
 
-    public List getINodeSection (Element element) {
+    public ArrayList getINodeSection (Element element) {
         Iterator iterator = element.elementIterator();
-        List<Inode> inodes = new ArrayList<Inode>();
-        List<Block> blocks = null;
+        ArrayList<Inode> inodes = new ArrayList<Inode>();
+        ArrayList<Block> blocks = null;
         Inode inode = null;
         Block block = null;
         while (iterator.hasNext()) {
@@ -85,30 +85,32 @@ public class Utils {
                 inode = new Inode();
                 while (iter.hasNext()) {
                     Element elem = (Element) iter.next();
+//                    System.out.println(elem.getName());
                     if (elem.getName().equals("blocks")) {
                         Iterator itera = elem.elementIterator();
                         blocks = new ArrayList<Block>();
+                        block = new Block();
                         while (itera.hasNext()) {
                             Element elemen = (Element) itera.next();
                             Iterator iterat = elemen.elementIterator();
-                            block = new Block();
                             while (iterat.hasNext()) {
-                                Element element1 = (Element) iterat.next();
-                                if (elemen.getName().equals("id")) {
-                                    block.setId(elemen.getStringValue());
+                                Element element1= (Element) iterat.next();
+                                if (element1.getName().equals("id")) {
+                                    block.setId(element1.getStringValue());
 //                                System.out.println(block.getId());
-                                } else if (elemen.getName().equals("genstamp")) {
-                                    block.setGenstamp(elemen.getStringValue());
-                                } else if (elemen.getName().equals("numBytes")) {
-                                    block.setNumBytes(elemen.getStringValue());
+                                } else if (element1.getName().equals("genstamp")) {
+                                    block.setGenstamp(element1.getStringValue());
+                                } else if (element1.getName().equals("numBytes")) {
+                                    block.setNumBytes(element1.getStringValue());
                                 }
                             }
-                            blocks.add(block);
-                            block = null;
                         }
+                        blocks.add(block);
+                        block = null;
                         inode.setBlocks(blocks);
                         blocks = null;
                     } else {
+//                        System.out.println(elem.getStringValue());
                         if (elem.getName().equals("id")) {
                             inode.setId(elem.getStringValue());
                         } else if (elem.getName().equals("type")) {
@@ -132,6 +134,8 @@ public class Utils {
                         }
                     }
                 }
+                inodes.add(inode);
+                inode = null;
             }
         }
         return inodes;

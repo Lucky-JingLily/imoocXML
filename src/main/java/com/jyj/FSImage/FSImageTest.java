@@ -53,13 +53,24 @@ public class FSImageTest {
                 utils.getElementContext(element);
             } else if (element.getName().equals("INodeDirectorySection")) {
                 ArrayList list = utils.getINodeDirectorySection(element);
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println("parent:" + ((Directory)list.get(i)).getParent());
-                    System.out.println(((Directory)list.get(i)).getInodes());
-                    System.out.println("===========inode结束==========");
-                }
+//                for (int i = 0; i < list.size(); i++) {
+//                    System.out.println("parent:" + ((Directory)list.get(i)).getParent());
+//                    System.out.println(((Directory)list.get(i)).getInodes());
+//                    System.out.println("===========inode结束==========");
+//                }
             } else if (element.getName().equals("INodeSection")) {
-//                List list = utils.getINodeSection(element);
+                ArrayList list = utils.getINodeSection(element);
+//                System.out.println(list.size());
+                for (int i = 0; i < list.size(); i++) {
+                    if (((Inode)list.get(i)).getType().equals("FILE")) {
+                        ArrayList arrayList = (ArrayList) ((Inode) list.get(i)).getBlocks();
+                        for (int j = 0; j < arrayList.size(); j++) {
+                            System.out.println("blockId:" + ((Block) arrayList.get(j)).getId());
+                            System.out.println("blockGenstamp:" + ((Block) arrayList.get(j)).getGenstamp());
+                            System.out.println("blockgetNumBytes:" + ((Block) arrayList.get(j)).getNumBytes());
+                        }
+                    }
+                }
 //                System.out.println(list.size());
 //                for (int i = 0; i < list.size(); i++) {
 //                    System.out.println(list.get(i));
