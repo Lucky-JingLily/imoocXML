@@ -1,4 +1,4 @@
-package com.jyj.SAX;
+package com.jyj.entity;
 
 /**
  * @Classname Book
