@@ -11,7 +11,6 @@ import org.dom4j.io.SAXReader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * @Classname Utils
@@ -43,29 +42,64 @@ public class Utils {
         }
     }
 
+//    public ArrayList<DirectoryList> getINodeDirectorySection (Element element) {
+//        ArrayList<DirectoryList> directories = new ArrayList<DirectoryList>();
+//        ArrayList<String> inodeIds = null;
+//        DirectoryList directoryList = null;
+//        Iterator iterator = element.elementIterator();
+//        while (iterator.hasNext()) {
+//            Element elm = (Element) iterator.next();
+//            Iterator iter = elm.elementIterator();
+//            directoryList = new DirectoryList();
+//            inodeIds = new ArrayList<String>();
+//            while (iter.hasNext()) {
+//                Element elem = (Element) iter.next();
+//                String elemName = elem.getName();
+//                if (elemName.equals("parent")) {
+//                    directoryList.setParent(elem.getStringValue());
+//                } else if (elemName.equals("inode")) {
+//                    inodeIds.add(elem.getStringValue());
+//                }
+//            }
+//            directoryList.setInodes(inodeIds);
+//            directories.add(directoryList);
+//            directoryList = null;
+//            inodeIds = null;
+//        }
+//        return directories;
+//    }
+
     public ArrayList<Directory> getINodeDirectorySection (Element element) {
         ArrayList<Directory> directories = new ArrayList<Directory>();
         ArrayList<String> inodeIds = null;
         Directory directory = null;
+        String parent = null;
         Iterator iterator = element.elementIterator();
         while (iterator.hasNext()) {
             Element elm = (Element) iterator.next();
             Iterator iter = elm.elementIterator();
-            directory = new Directory();
-            inodeIds = new ArrayList<String>();
             while (iter.hasNext()) {
                 Element elem = (Element) iter.next();
                 String elemName = elem.getName();
                 if (elemName.equals("parent")) {
-                    directory.setParent(elem.getStringValue());
-                } else if (elemName.equals("inode")) {
+                    parent = elem.getStringValue();
+                    continue;
+                }
+//                System.out.println(parent);
+                if (elemName.equals("inode")) {
+                    inodeIds = new ArrayList<String>();
                     inodeIds.add(elem.getStringValue());
+                    for (int i = 0; i < inodeIds.size(); i++) {
+                        directory = new Directory();
+                        directory.setParent(parent);
+                        directory.setInodes(inodeIds.get(i));
+                        directories.add(directory);
+                        directory = null;
+                    }
+                    inodeIds = null;
                 }
             }
-            directory.setInodes(inodeIds);
-            directories.add(directory);
-            directory = null;
-            inodeIds = null;
+            parent = null;
         }
         return directories;
     }

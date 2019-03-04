@@ -3,13 +3,9 @@ package com.jyj.FSImage;
 import com.jyj.entity.Block;
 import com.jyj.entity.Directory;
 import com.jyj.entity.Inode;
-import org.dom4j.Attribute;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
+import org.apache.ibatis.session.SqlSession;
 import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 
-import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,8 +22,8 @@ public class FSImageTest {
     public static void main(String[] args) {
         List<Block> blockList = null;
         List<File> fileList = null;
-        List<Directory> directories = null;
         List<Inode> inodes = null;
+        SqlSession sqlSession = MysqlTools.getSqlSession();
 
         Utils utils = new Utils();
         int count = 0;
@@ -53,24 +49,28 @@ public class FSImageTest {
                 utils.getElementContext(element);
             } else if (element.getName().equals("INodeDirectorySection")) {
                 ArrayList list = utils.getINodeDirectorySection(element);
-//                for (int i = 0; i < list.size(); i++) {
-//                    System.out.println("parent:" + ((Directory)list.get(i)).getParent());
-//                    System.out.println(((Directory)list.get(i)).getInodes());
+                Directory directory = null;
+                for (int i = 0; i < list.size(); i++) {
+                    directory = (Directory) list.get(i);
+//                    System.out.println("parent:" + directory.getParent());
+//                    System.out.println("inode:" + directory.getInodes());
+                    sqlSession.insert("directory.insert", directory);
 //                    System.out.println("===========inode结束==========");
-//                }
+                }
+                sqlSession.commit();
             } else if (element.getName().equals("INodeSection")) {
                 ArrayList list = utils.getINodeSection(element);
 //                System.out.println(list.size());
-                for (int i = 0; i < list.size(); i++) {
-                    if (((Inode)list.get(i)).getType().equals("FILE")) {
-                        ArrayList arrayList = (ArrayList) ((Inode) list.get(i)).getBlocks();
-                        for (int j = 0; j < arrayList.size(); j++) {
-                            System.out.println("blockId:" + ((Block) arrayList.get(j)).getId());
-                            System.out.println("blockGenstamp:" + ((Block) arrayList.get(j)).getGenstamp());
-                            System.out.println("blockgetNumBytes:" + ((Block) arrayList.get(j)).getNumBytes());
-                        }
-                    }
-                }
+//                for (int i = 0; i < list.size(); i++) {
+//                    if (((Inode)list.get(i)).getType().equals("FILE")) {
+//                        ArrayList arrayList = (ArrayList) ((Inode) list.get(i)).getBlocks();
+//                        for (int j = 0; j < arrayList.size(); j++) {
+//                            System.out.println("blockId:" + ((Block) arrayList.get(j)).getId());
+//                            System.out.println("blockGenstamp:" + ((Block) arrayList.get(j)).getGenstamp());
+//                            System.out.println("blockgetNumBytes:" + ((Block) arrayList.get(j)).getNumBytes());
+//                        }
+//                    }
+//                }
 //                System.out.println(list.size());
 //                for (int i = 0; i < list.size(); i++) {
 //                    System.out.println(list.get(i));

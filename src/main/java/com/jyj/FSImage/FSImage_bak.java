@@ -1,7 +1,6 @@
 package com.jyj.FSImage;
 
 import com.jyj.entity.Block;
-import com.jyj.entity.Directory;
 import org.dom4j.Element;
 
 import java.io.File;
@@ -19,7 +18,7 @@ public class FSImage_bak {
     public static void main(String[] args) {
         List<Block> blockList = null;
         List<File> fileList = null;
-        List<Directory> directories = null;
+        List<DirectoryList> directories = null;
 
         Utils utils = new Utils();
         int count = 0;
