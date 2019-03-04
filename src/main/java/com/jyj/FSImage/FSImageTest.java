@@ -52,25 +52,22 @@ public class FSImageTest {
                 Directory directory = null;
                 for (int i = 0; i < list.size(); i++) {
                     directory = (Directory) list.get(i);
-//                    System.out.println("parent:" + directory.getParent());
-//                    System.out.println("inode:" + directory.getInodes());
+                    System.out.println("parent:" + directory.getParent());
+                    System.out.println("inode:" + directory.getInodes());
                     sqlSession.insert("directory.insert", directory);
-//                    System.out.println("===========inode结束==========");
+                    System.out.println("===========inode结束==========");
                 }
                 sqlSession.commit();
             } else if (element.getName().equals("INodeSection")) {
-                ArrayList list = utils.getINodeSection(element);
+//                ArrayList list = utils.getINodeSection(element);
 //                System.out.println(list.size());
+//                Inode inode = null;
 //                for (int i = 0; i < list.size(); i++) {
-//                    if (((Inode)list.get(i)).getType().equals("FILE")) {
-//                        ArrayList arrayList = (ArrayList) ((Inode) list.get(i)).getBlocks();
-//                        for (int j = 0; j < arrayList.size(); j++) {
-//                            System.out.println("blockId:" + ((Block) arrayList.get(j)).getId());
-//                            System.out.println("blockGenstamp:" + ((Block) arrayList.get(j)).getGenstamp());
-//                            System.out.println("blockgetNumBytes:" + ((Block) arrayList.get(j)).getNumBytes());
-//                        }
-//                    }
+//                    inode = (Inode) list.get(i);
+//                    sqlSession.insert("inode.insert", inode);
+//                    System.out.println(inode.getId());
 //                }
+//                sqlSession.commit();
 //                System.out.println(list.size());
 //                for (int i = 0; i < list.size(); i++) {
 //                    System.out.println(list.get(i));

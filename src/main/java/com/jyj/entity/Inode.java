@@ -13,14 +13,17 @@ public class Inode {
     private String id;
     private String type;
     private String name;
+    private int replication;
     private String mtime;
     private String atime;
+    private String perferredBlockSize;
     private String permission;
     private String nsquota;
     private String dsquota;
-    private String perferredBlockSize;
-    private List<Block> blocks = new ArrayList<Block>();
-    private int replication;
+    private String blockId;
+    private String genstamp;
+    private String numBytes;
+
 
     public String getAtime() {
         return atime;
@@ -102,23 +105,27 @@ public class Inode {
         this.perferredBlockSize = perferredBlockSize;
     }
 
-    public List<Block> getBlocks() {
-        return blocks;
+    public String getBlockId() {
+        return blockId;
     }
 
-    public void setBlocks(List<Block> blocks) {
-        Block block = null;
-        for (int i = 0; i < blocks.size(); i++) {
-            block = new Block();
-            if (this.type.equals("DIRECTORY")) {
-                this.blocks = null;
-            } else {
-                block.setId(blocks.get(i).getId());
-                block.setNumBytes(blocks.get(i).getNumBytes());
-                block.setGenstamp(blocks.get(i).getGenstamp());
-                this.blocks.add(block);
-                block = null;
-            }
-        }
+    public void setBlockId(String blockId) {
+        this.blockId = blockId;
+    }
+
+    public String getGenstamp() {
+        return genstamp;
+    }
+
+    public void setGenstamp(String genstamp) {
+        this.genstamp = genstamp;
+    }
+
+    public String getNumBytes() {
+        return numBytes;
+    }
+
+    public void setNumBytes(String numBytes) {
+        this.numBytes = numBytes;
     }
 }

@@ -17,5 +17,6 @@
     <!-- *****引入映射文件(新增部分)***** -->
     <mappers>
         <mapper resource="DirectoryMapper.xml"/>
+        <mapper resource="InodeMapper.xml"/>
     </mappers>
 </configuration>

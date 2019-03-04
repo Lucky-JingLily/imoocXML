@@ -18,7 +18,6 @@ public class FSImage_bak {
     public static void main(String[] args) {
         List<Block> blockList = null;
         List<File> fileList = null;
-        List<DirectoryList> directories = null;
 
         Utils utils = new Utils();
         int count = 0;

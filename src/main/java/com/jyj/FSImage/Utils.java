@@ -122,27 +122,21 @@ public class Utils {
 //                    System.out.println(elem.getName());
                     if (elem.getName().equals("blocks")) {
                         Iterator itera = elem.elementIterator();
-                        blocks = new ArrayList<Block>();
-                        block = new Block();
                         while (itera.hasNext()) {
                             Element elemen = (Element) itera.next();
                             Iterator iterat = elemen.elementIterator();
                             while (iterat.hasNext()) {
                                 Element element1= (Element) iterat.next();
                                 if (element1.getName().equals("id")) {
-                                    block.setId(element1.getStringValue());
+                                    inode.setBlockId(element1.getStringValue());
 //                                System.out.println(block.getId());
                                 } else if (element1.getName().equals("genstamp")) {
-                                    block.setGenstamp(element1.getStringValue());
+                                    inode.setGenstamp(element1.getStringValue());
                                 } else if (element1.getName().equals("numBytes")) {
-                                    block.setNumBytes(element1.getStringValue());
+                                    inode.setNumBytes(element1.getStringValue());
                                 }
                             }
                         }
-                        blocks.add(block);
-                        block = null;
-                        inode.setBlocks(blocks);
-                        blocks = null;
                     } else {
 //                        System.out.println(elem.getStringValue());
                         if (elem.getName().equals("id")) {
